@@ -46,6 +46,7 @@
       <nav class="nav-menu" id="navMenu">
         <a href="#jobs" class="nav-link">Find Farm Jobs</a>
         <a href="#operators" class="nav-link">Vetted Operators</a>
+        <a href="#farmland" class="nav-link">Farmland (Lease & Buy)</a>
         <a href="#how-it-works" class="nav-link">How It Works</a>
         <a href="#pricing" class="nav-link">Employers</a>
         <a href="#candidate-banner" class="nav-link highlight" onclick="openTalentModal()">Join Talent Pool</a>
@@ -53,7 +54,8 @@
 
       <div class="header-actions">
         <a href="tel:+2348034127476" class="btn btn-outline-primary" style="font-weight:700;">📞 0803 412 7476</a>
-        <button class="btn btn-primary" onclick="openPostJobModal()">+ Post a Vacancy</button>
+        <button class="btn btn-primary" onclick="openPostJobModal()">+ Post Vacancy</button>
+        <button class="btn btn-accent" onclick="openPostLandModal()" style="font-size:0.85rem; padding: 0.6rem 1rem;">+ List Farmland</button>
         <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation Menu">
           <span></span><span></span><span></span>
         </button>
@@ -230,6 +232,60 @@
     </div>
   </section>
 
+  <!-- Farmland Showcase Section (Lease & Outright Purchase) -->
+  <section class="section farmland-section" id="farmland">
+    <div class="container">
+      <div class="farmland-header-row">
+        <div>
+          <span class="section-subtitle">Agricultural Real Estate & Expansion</span>
+          <h2 class="section-title">Verified Farmland for Lease & Outright Purchase</h2>
+          <p class="section-desc" style="max-width: 680px;">
+            Expand your cultivation or set up commercial livestock with confirmed title documentation, dependable water sources, and peaceful community relations.
+          </p>
+          <div class="farmland-filters" id="farmlandFilters">
+            <button class="filter-pill active" data-landfilter="all">All Farmland (<span id="countFarmland">0</span>)</button>
+            <button class="filter-pill" data-landfilter="lease">For Lease (Annual)</button>
+            <button class="filter-pill" data-landfilter="sale">For Outright Sale</button>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.5rem;">
+          <button class="btn btn-primary" onclick="openPostLandModal()">
+            + List Farmland for Lease / Sale
+          </button>
+          <span style="font-size:0.8rem; color:var(--gray-500);">🔒 All listings independently verified before publishing</span>
+        </div>
+      </div>
+
+      <!-- Farmland Grid -->
+      <div class="farmland-grid" id="farmlandGrid">
+        <!-- Dynamically populated via app.js -->
+      </div>
+
+      <div class="view-more-container" id="emptyLandState" style="display: none;">
+        <div class="empty-state-card">
+          <span class="empty-icon">🏞️</span>
+          <h3>No farmland matching this category</h3>
+          <p>Try switching between "For Lease" and "For Outright Sale", or list your farmland today.</p>
+          <button class="btn btn-outline-primary" onclick="filterFarmland('all')">View All Farmland</button>
+        </div>
+      </div>
+
+      <!-- Land Acquisition & Title Due Diligence Banner -->
+      <div class="farmland-cta-banner">
+        <div class="farmland-cta-text">
+          <span class="security-badge-live" style="background:#064e3b; color:#a7f3d0; border-color:#047857; margin-bottom:0.5rem;">🛡️ AgroHire Land Due Diligence</span>
+          <h3>Looking for Specific Acreage or Title Verification?</h3>
+          <p>
+            Avoid boundary disputes and land grabbers. Our field inspection team visits farmlands, verifies perimeter coordinates with registered surveyors, and authenticates titles before money changes hands.
+          </p>
+        </div>
+        <button class="btn btn-accent" onclick="openWhatsApp('Hello AgroHire Land Desk! I am seeking agricultural land for lease/purchase or require title due diligence in Nigeria.')">
+          Consult Land Desk &rarr;
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- How It Works Section -->
   <section class="section how-it-works-section" id="how-it-works">
     <div class="container">
@@ -398,6 +454,8 @@
         <h4>For Farm Owners</h4>
         <ul>
           <li><a href="#post-modal" onclick="openPostJobModal()">Post a Farm Vacancy</a></li>
+          <li><a href="#farmland" onclick="openPostLandModal()">List Farmland (Lease/Sale)</a></li>
+          <li><a href="#farmland">Browse Farmland Listings</a></li>
           <li><a href="#pricing">VIP Shortlist Service</a></li>
           <li><a href="#operators">Hire Tractor Drivers</a></li>
           <li><a href="#operators">List Idle Equipment</a></li>
@@ -537,6 +595,14 @@
         <span class="modal-tag">For Farm Owners</span>
         <h3>Post a Farm Vacancy</h3>
         <p>Connect with vetted managers, tractor drivers, and specialized hands.</p>
+      </div>
+
+      <div class="security-banner">
+        <span class="security-banner-icon">🛡️</span>
+        <div>
+          <strong>AgroHire Anti-Scam Security Protocol:</strong>
+          To protect job seekers from ghost fees and fraudulent recruiters, all vacancies are reviewed by Victoria & the moderation team before going live.
+        </div>
       </div>
 
       <form id="postJobForm" onsubmit="handlePostJob(event)">
@@ -683,6 +749,147 @@
           <button type="submit" class="btn btn-primary">Submit Profile &rarr;</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- Modal 4: List Farmland Modal -->
+  <div class="modal-overlay" id="landModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModals()">&times;</button>
+      <div class="modal-header">
+        <span class="modal-tag">Agricultural Real Estate</span>
+        <h3>List Farmland for Lease or Sale</h3>
+        <p>Connect with serious commercial farmers, agro-processors, and institutional buyers.</p>
+      </div>
+
+      <div class="security-banner">
+        <span class="security-banner-icon">🛡️</span>
+        <div>
+          <strong>AgroHire Title Integrity Protocol:</strong>
+          We inspect survey coordinates and legal documents before publishing to protect our network from land grabbers and boundary disputes.
+        </div>
+      </div>
+
+      <form id="postLandForm" onsubmit="handlePostLand(event)">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="landTitle">Land Title / Headline *</label>
+            <input type="text" id="landTitle" placeholder="e.g. 50 Hectares Riverfront Farmland" required>
+          </div>
+          <div class="form-field">
+            <label for="landPurpose">Listing Purpose *</label>
+            <select id="landPurpose" required>
+              <option value="lease">For Lease (Annual Rental)</option>
+              <option value="sale">For Outright Sale</option>
+              <option value="partnership">Joint Venture / Farming Partnership</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="landSize">Total Land Size (Hectares or Acres) *</label>
+            <input type="text" id="landSize" placeholder="e.g. 50 Hectares (approx 125 Acres)" required>
+          </div>
+          <div class="form-field">
+            <label for="landLocation">State & Town / LGA *</label>
+            <input type="text" id="landLocation" placeholder="e.g. Oyo (Iseyin / Saki Belt)" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="landPrice">Asking Price / Lease Rate *</label>
+            <input type="text" id="landPrice" placeholder="e.g. ₦120,000 / Hectare / Year OR ₦3.5M / Acre" required>
+          </div>
+          <div class="form-field">
+            <label for="landWater">Primary Water Source *</label>
+            <select id="landWater" required>
+              <option value="Perennial River / Stream Frontage">Perennial River / Stream Frontage</option>
+              <option value="Commercial Drilled Borehole">Commercial Drilled Borehole</option>
+              <option value="Irrigation Dam / Canal Access">Irrigation Dam / Canal Access</option>
+              <option value="Seasonal Natural Water Body">Seasonal Natural Water Body</option>
+              <option value="Rain-fed Only">Rain-fed Only (Borehole needed)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="landDoc">Legal Title / Documentation *</label>
+            <select id="landDoc" required>
+              <option value="Certificate of Occupancy (C of O)">Certificate of Occupancy (C of O)</option>
+              <option value="Governor's Consent / State Allocation">Governor's Consent / State Allocation</option>
+              <option value="Approved Excision / Gazette">Approved Excision / Gazette</option>
+              <option value="Registered Survey Plan & Family Deed">Registered Survey Plan & Family Deed</option>
+              <option value="Family Receipt & Village Head Consent">Family Receipt & Village Head Consent</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="landTopography">Topography & Land Status *</label>
+            <select id="landTopography" required>
+              <option value="Flat Loamy Arable Land (Tractor Ready)">Flat Loamy Arable Land (Tractor Ready)</option>
+              <option value="Virgin Forest (Requires De-stumping)">Virgin Forest (Requires De-stumping)</option>
+              <option value="Valley / Wetland (Ideal for Fishery & Veg)">Valley / Wetland (Ideal for Fishery & Veg)</option>
+              <option value="Fenced Farm with Pen Infrastructure">Fenced Farm with Pen Infrastructure</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="landOwnerName">Owner / Authorized Representative *</label>
+            <input type="text" id="landOwnerName" placeholder="e.g. Chief Adeleke / Farm Trust" required>
+          </div>
+          <div class="form-field">
+            <label for="landOwnerPhone">WhatsApp Number for Verification *</label>
+            <input type="tel" id="landOwnerPhone" placeholder="e.g. 08034567890" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="landDesc">Key Details & Road Accessibility</label>
+          <textarea id="landDesc" rows="3"
+            placeholder="Mention road conditions (e.g., 2km off tarred expressway), proximity to electricity, past crop yields, or lease terms..."></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Farmland for Verification &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 5: Security Approval Notice Modal -->
+  <div class="modal-overlay" id="approvalNoticeModal">
+    <div class="modal-card" style="max-width: 520px;">
+      <button class="modal-close" onclick="closeModals()">&times;</button>
+      <div class="approval-modal-content">
+        <div class="approval-icon-wrapper">🛡️</div>
+        <h3 id="approvalNoticeTitle">Submitted for Security Verification!</h3>
+        <p id="approvalNoticeDesc">
+          Your listing has been safely received. To maintain Nigerian agribusiness trust and protect applicants from scams, all listings undergo independent review by Victoria & the AgroHire safety desk before appearing on the public platform.
+        </p>
+
+        <div class="approval-steps-box">
+          <strong style="color:var(--dark); display:block; margin-bottom:0.4rem;">What Happens Next:</strong>
+          <ul>
+            <li><strong>Phone Authentication:</strong> We verify your contact number via WhatsApp.</li>
+            <li><strong>Safety Check:</strong> Vacancies are checked to ensure no fees are solicited from job seekers; Farmlands are checked for authentic coordinates.</li>
+            <li><strong>Rapid Go-Live:</strong> Verified listings typically publish within 1–2 hours.</li>
+          </ul>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.75rem;">
+          <button class="btn btn-accent full-width" id="approvalWhatsAppBtn" onclick="confirmApprovalWhatsApp()">
+            💬 Send Verification WhatsApp to Admin &rarr;
+          </button>
+          <button class="btn btn-secondary full-width" onclick="closeModals()">
+            Done / Close
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 

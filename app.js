@@ -187,18 +187,107 @@ const VETTED_OPERATORS = [
   }
 ];
 
+// Seed Verified Farmland Listings (High-demand arable agricultural land in Nigeria)
+const INITIAL_FARMLAND = [
+  {
+    id: "land-1",
+    title: "50 Hectares Riverfront Arable Farmland",
+    purpose: "lease",
+    size: "50 Hectares (approx 125 Acres)",
+    location: "Iseyin / Saki Agricultural Belt, Oyo State",
+    state: "Oyo",
+    price: "₦120,000",
+    priceUnit: "/ Hectare / Year",
+    water: "Perennial River Ogun Frontage (Year-round Irrigation)",
+    titleDoc: "Registered Survey Plan & Family Consent Deed",
+    topography: "Flat Loamy Arable Soil (Tractor Ready, Zero Heavy Stumps)",
+    description: "Exceptional arable land with direct 400m river frontage. Ideal for dry-season mechanized maize, cassava, soybeans, and commercial horticulture. Heavy truck motorable road directly off the Iseyin-Saki highway.",
+    suitedCrops: ["Commercial Maize", "Cassava", "Soybeans", "Dry Season Veg"],
+    verified: true
+  },
+  {
+    id: "land-2",
+    title: "20 Acres Commercial Livestock & Poultry Estate",
+    purpose: "sale",
+    size: "20 Acres (approx 8.1 Hectares)",
+    location: "Ogijo / Sagamu Agro Corridor, Ogun State",
+    state: "Ogun",
+    price: "₦3,500,000",
+    priceUnit: "/ Acre (Outright Sale)",
+    water: "Industrial Commercial Borehole Drilled",
+    titleDoc: "Approved Government Excision & Registered Survey",
+    topography: "Solid Dry Land, Perimeter Fenced, 33kVA Line Accessible",
+    description: "Fully accessible agricultural estate situated 45 minutes from Lagos (Ikorodu axis). Perfect for commercial poultry broiler/layer pens, automated piggery, feed mill, or cold storage hub.",
+    suitedCrops: ["Broiler / Layer Pens", "Piggery", "Feed Mill", "Greenhouse"],
+    verified: true
+  },
+  {
+    id: "land-3",
+    title: "100 Hectares Turnkey Mechanized Grain Belt Farmland",
+    purpose: "lease",
+    size: "100 Hectares (approx 250 Acres)",
+    location: "Zaria Outer Belt / Kaduna North, Kaduna State",
+    state: "Kaduna",
+    price: "₦90,000",
+    priceUnit: "/ Hectare / Year",
+    water: "Irrigation Dam Canal & Seasonal Stream",
+    titleDoc: "State Ministry Agricultural Allocation & C of O in Process",
+    topography: "100% Flat Savanna Topography, Completely De-stumped",
+    description: "Pre-cleared, tractor-ready expanse tailored for high-tonnage mechanized grain production. Direct access to tractor implements and proximity to major northern aggregation markets.",
+    suitedCrops: ["Hybrid Maize", "Sorghum", "Soybeans", "Wheat"],
+    verified: true
+  },
+  {
+    id: "land-4",
+    title: "15 Hectares Natural Stream Basin for Aquaculture & Fruit",
+    purpose: "sale",
+    size: "15 Hectares (approx 37 Acres)",
+    location: "Epe / Ijebu Agro Axis, Ogun/Lagos Border",
+    state: "Ogun",
+    price: "₦4,200,000",
+    priceUnit: "/ Acre (Outright Sale)",
+    water: "Perennial Spring-Fed Stream & High Water Table",
+    titleDoc: "Gazette & Registered Cadastral Survey",
+    topography: "Gentle Valley with Rich Alluvial Wetland & Dry Uplands",
+    description: "Abundant water flow year-round with zero pumping costs. Engineered for commercial earthen catfish/tilapia ponds, plantain sucker plantations, and hybrid oil palm estates.",
+    suitedCrops: ["Catfish Ponds", "Hybrid Plantain", "Vegetables", "Oil Palm"],
+    verified: true
+  },
+  {
+    id: "land-5",
+    title: "80 Hectares Riverine Farmland for Rice & Sugarcane",
+    purpose: "lease",
+    size: "80 Hectares (approx 200 Acres)",
+    location: "Makurdi / Benue River Basin, Benue State",
+    state: "Benue",
+    price: "₦110,000",
+    priceUnit: "/ Hectare / Year",
+    water: "River Benue Tributary Frontage (Uninterrupted Flow)",
+    titleDoc: "Customary Agricultural Right of Occupancy & Survey",
+    topography: "Fertile Floodplain & Silt-Rich Riverbank",
+    description: "High-yielding fertile basin suited for commercial paddy rice and sugarcane farming. Established farming community with abundant seasonal farmhands.",
+    suitedCrops: ["Lowland Paddy Rice", "Sugarcane", "Yam", "Cassava"],
+    verified: true
+  }
+];
+
 // State Management
 let allJobs = [];
+let allFarmland = [];
 let currentCategoryFilter = "all";
+let currentLandFilter = "all";
 let currentSearchKeyword = "";
 let currentLocationFilter = "all";
+let pendingVerificationMessage = "";
 
 // Initialization
 document.addEventListener("DOMContentLoaded", () => {
   loadJobs();
+  loadFarmland();
   renderOperators();
   setupEventListeners();
   updateCategoryCounts();
+  updateFarmlandCounts();
 });
 
 // Load Jobs from LocalStorage or Seed Data
@@ -345,6 +434,170 @@ function renderOperators() {
   });
 }
 
+// Load Farmland from LocalStorage or Seed Data
+function loadFarmland() {
+  const storedLand = localStorage.getItem("agrohire_custom_farmlands");
+  if (storedLand) {
+    try {
+      const parsed = JSON.parse(storedLand);
+      allFarmland = [...parsed, ...INITIAL_FARMLAND];
+    } catch (e) {
+      allFarmland = [...INITIAL_FARMLAND];
+    }
+  } else {
+    allFarmland = [...INITIAL_FARMLAND];
+  }
+  renderFarmland();
+}
+
+// Render Farmland into Grid
+function renderFarmland() {
+  const grid = document.getElementById("farmlandGrid");
+  const emptyState = document.getElementById("emptyLandState");
+  if (!grid) return;
+
+  grid.innerHTML = "";
+
+  const filtered = allFarmland.filter(land => {
+    if (currentLandFilter === "all") return true;
+    return land.purpose === currentLandFilter;
+  });
+
+  if (filtered.length === 0) {
+    if (emptyState) emptyState.style.display = "block";
+    grid.style.display = "none";
+  } else {
+    if (emptyState) emptyState.style.display = "none";
+    grid.style.display = "grid";
+
+    filtered.forEach(land => {
+      const card = document.createElement("div");
+      card.className = "farmland-card";
+
+      const isLease = land.purpose === "lease";
+      const typeBadge = isLease 
+        ? '<span class="farmland-type-badge lease">For Lease (Annual)</span>' 
+        : '<span class="farmland-type-badge sale">For Outright Sale</span>';
+
+      const cropsHtml = land.suitedCrops.map(c => 
+        `<span class="farmland-crop-tag">${escapeHtml(c)}</span>`
+      ).join("");
+
+      card.innerHTML = `
+        <div>
+          <div class="farmland-card-top">
+            ${typeBadge}
+            <span class="farmland-size-tag">📐 ${escapeHtml(land.size)}</span>
+          </div>
+
+          <h3 class="farmland-title">${escapeHtml(land.title)}</h3>
+          <div class="farmland-location">📍 ${escapeHtml(land.location)}</div>
+
+          <div class="farmland-specs">
+            <div class="farmland-spec-item">
+              <span class="farmland-spec-label">Water Source</span>
+              <span class="farmland-spec-val" title="${escapeHtml(land.water)}">💧 ${escapeHtml(land.water)}</span>
+            </div>
+            <div class="farmland-spec-item">
+              <span class="farmland-spec-label">Title / Document</span>
+              <span class="farmland-spec-val" title="${escapeHtml(land.titleDoc)}">📜 ${escapeHtml(land.titleDoc)}</span>
+            </div>
+            <div class="farmland-spec-item" style="grid-column: span 2;">
+              <span class="farmland-spec-label">Topography & Status</span>
+              <span class="farmland-spec-val">⛰️ ${escapeHtml(land.topography)}</span>
+            </div>
+          </div>
+
+          <p class="farmland-desc">${escapeHtml(land.description)}</p>
+
+          <div class="farmland-crop-tags">
+            ${cropsHtml}
+          </div>
+        </div>
+
+        <div>
+          <div class="farmland-price-row">
+            <div>
+              <span class="farmland-price-val">${escapeHtml(land.price)}</span>
+              <span class="farmland-price-unit">${escapeHtml(land.priceUnit || "")}</span>
+            </div>
+            <div style="display:flex; gap:0.4rem;">
+              <button class="btn-icon" onclick="shareFarmlandWhatsApp('${land.id}')" title="Share via WhatsApp">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.353.101.173.45 0.743.966 1.202.664.591 1.224.774 1.397.86.173.086.274.072.376-.043.101-.116.433-.506.549-.679.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/>
+                </svg>
+              </button>
+              <button class="btn btn-primary btn-sm" onclick="inquireFarmlandWhatsApp('${land.id}')">
+                Book Inspection &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+  }
+}
+
+// Filter Farmland helper
+function filterFarmland(filterType) {
+  currentLandFilter = filterType;
+  document.querySelectorAll("#farmlandFilters .filter-pill").forEach(p => {
+    if (p.dataset.landfilter === filterType) {
+      p.classList.add("active");
+    } else {
+      p.classList.remove("active");
+    }
+  });
+  renderFarmland();
+}
+
+// Update Farmland Count
+function updateFarmlandCounts() {
+  const countFarmland = document.getElementById("countFarmland");
+  if (countFarmland) countFarmland.textContent = allFarmland.length;
+}
+
+// Inquire Farmland on WhatsApp
+function inquireFarmlandWhatsApp(landId) {
+  const land = allFarmland.find(l => l.id === landId);
+  if (!land) return;
+
+  const msg = `Hello Victoria / AgroHire Land Desk! 🌾\n` +
+    `---------------------------\n` +
+    `I am interested in inspecting the following agricultural land:\n\n` +
+    `📍 *Title:* ${land.title}\n` +
+    `🎯 *Type:* ${land.purpose === 'lease' ? 'For Lease' : 'For Outright Sale'}\n` +
+    `📐 *Size:* ${land.size}\n` +
+    `📌 *Location:* ${land.location}\n` +
+    `💰 *Rate:* ${land.price} ${land.priceUnit || ""}\n` +
+    `💧 *Water:* ${land.water}\n` +
+    `📜 *Title:* ${land.titleDoc}\n` +
+    `---------------------------\n` +
+    `Please advise on next inspection schedule and title verification procedures.`;
+
+  openWhatsApp(msg);
+}
+
+// Share Farmland on WhatsApp
+function shareFarmlandWhatsApp(landId) {
+  const land = allFarmland.find(l => l.id === landId);
+  if (!land) return;
+
+  const shareText = `🌾 *Verified Farmland in Nigeria: ${land.title}*\n` +
+    `🎯 *Type:* ${land.purpose === 'lease' ? 'For Lease' : 'For Outright Sale'}\n` +
+    `📐 *Size:* ${land.size}\n` +
+    `📍 *Location:* ${land.location}\n` +
+    `💰 *Price:* ${land.price} ${land.priceUnit || ""}\n` +
+    `💧 *Water:* ${land.water}\n` +
+    `📜 *Title:* ${land.titleDoc}\n\n` +
+    `View details & book inspection on AgroHire Nigeria: ${window.location.href}`;
+
+  const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  window.open(url, "_blank");
+}
+
 // Event Listeners Setup
 function setupEventListeners() {
   // Mobile Nav Toggle
@@ -363,11 +616,26 @@ function setupEventListeners() {
       const btn = e.target.closest(".filter-pill");
       if (!btn) return;
 
-      document.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll("#categoryFilters .filter-pill").forEach(p => p.classList.remove("active"));
       btn.classList.add("active");
 
       currentCategoryFilter = btn.dataset.filter;
       renderJobs();
+    });
+  }
+
+  // Farmland Filter Pills
+  const landFilterContainer = document.getElementById("farmlandFilters");
+  if (landFilterContainer) {
+    landFilterContainer.addEventListener("click", (e) => {
+      const btn = e.target.closest(".filter-pill");
+      if (!btn) return;
+
+      document.querySelectorAll("#farmlandFilters .filter-pill").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+
+      currentLandFilter = btn.dataset.landfilter;
+      renderFarmland();
     });
   }
 }
@@ -478,6 +746,10 @@ function openPostJobModal(packageName = "Free Standard") {
   document.getElementById("postModal").classList.add("active");
 }
 
+function openPostLandModal() {
+  document.getElementById("landModal").classList.add("active");
+}
+
 function openTalentModal() {
   document.getElementById("talentModal").classList.add("active");
 }
@@ -539,7 +811,7 @@ function handleJobApplication(e) {
   }, 1200);
 }
 
-// Handle Employer Post Job Submission
+// Handle Employer Post Job Submission (With WhatsApp Security Pre-Approval)
 function handlePostJob(e) {
   e.preventDefault();
 
@@ -554,60 +826,140 @@ function handlePostJob(e) {
   const phone = document.getElementById("contactPhone").value.trim();
   const desc = document.getElementById("postDescription").value.trim();
 
-  // Create new job object
-  const newJob = {
-    id: "custom-" + Date.now(),
-    title: title,
-    farm: farm,
-    category: category,
-    state: stateLoc.split("(")[0].trim() || "Nigeria",
-    town: stateLoc,
-    salary: salary,
-    housing: housing,
-    type: "Full-Time",
-    urgent: true,
-    postedDays: "Just now",
-    description: desc || `Full-time agricultural role at ${farm} in ${stateLoc}. Accommodation: ${housing}.`,
-    skills: ["Verified Vacancy", "Direct Farm Owner"],
-    whatsappContact: phone
-  };
+  // Create formatted WhatsApp Security Verification alert for Victoria
+  const adminMsg = `🛡️ *AGROHIRE SECURITY ALERT: NEW VACANCY PENDING APPROVAL*\n` +
+    `---------------------------------------------\n` +
+    `🏢 *Farm / Business:* ${farm}\n` +
+    `💼 *Role Title:* ${title}\n` +
+    `🏷️ *Category:* ${category}\n` +
+    `📍 *Location:* ${stateLoc}\n` +
+    `💰 *Salary Offer:* ${salary}\n` +
+    `🏡 *Housing:* ${housing}\n` +
+    `📦 *Package Selected:* ${pkg}\n` +
+    `👤 *Contact Person:* ${contact}\n` +
+    `📞 *WhatsApp Number:* ${phone}\n` +
+    `📝 *Job Details:* ${desc || "Standard commercial agricultural duties"}\n` +
+    `---------------------------------------------\n` +
+    `⚠️ *ANTI-SCAM SECURITY CHECKLIST:*\n` +
+    `1. Confirm direct phone identity of farm contact\n` +
+    `2. Verify physical farm existence & NO fee requested from job seekers\n\n` +
+    `*Admin Action:* Reply to authenticate and publish on AgroHire Job Board.`;
 
-  // Save to LocalStorage
-  let customJobs = [];
+  pendingVerificationMessage = adminMsg;
+
+  // Save to audit pending queue
+  let pendingJobs = [];
   try {
-    const stored = localStorage.getItem("agrohire_custom_jobs");
-    if (stored) customJobs = JSON.parse(stored);
+    const stored = localStorage.getItem("agrohire_pending_jobs");
+    if (stored) pendingJobs = JSON.parse(stored);
   } catch (err) {}
 
-  customJobs.unshift(newJob);
-  localStorage.setItem("agrohire_custom_jobs", JSON.stringify(customJobs));
-
-  // Reload jobs
-  loadJobs();
-  updateCategoryCounts();
+  pendingJobs.unshift({
+    id: "pending-job-" + Date.now(),
+    farm, title, category, stateLoc, salary, housing, pkg, contact, phone, desc,
+    submittedAt: new Date().toISOString(),
+    status: "pending_verification"
+  });
+  localStorage.setItem("agrohire_pending_jobs", JSON.stringify(pendingJobs));
 
   closeModals();
   document.getElementById("postJobForm").reset();
 
-  // Create WhatsApp notification for Victoria/Admin
-  const adminMsg = `*NEW VACANCY POSTED ON AGROHIRE*\n` +
-    `---------------------------\n` +
-    `*Farm Name:* ${farm}\n` +
-    `*Role:* ${title}\n` +
-    `*Location:* ${stateLoc}\n` +
-    `*Salary:* ${salary}\n` +
-    `*Housing:* ${housing}\n` +
-    `*Package Selected:* ${pkg}\n` +
-    `*Contact Person:* ${contact} (${phone})\n` +
-    `*Details:* ${desc}\n` +
-    `---------------------------\n` +
-    `Submitted on AgroHire.ng`;
+  // Configure and show Approval Notice Modal
+  const noticeTitle = document.getElementById("approvalNoticeTitle");
+  const noticeDesc = document.getElementById("approvalNoticeDesc");
+  if (noticeTitle) noticeTitle.textContent = "Vacancy Submitted for Security Review!";
+  if (noticeDesc) {
+    noticeDesc.textContent = `Your vacancy for "${title}" at ${farm} is undergoing anti-scam review by Victoria & the AgroHire moderation team. Click below to send your verification message on WhatsApp.`;
+  }
 
-  showToast(`Success! Your vacancy is live on AgroHire.ng.`);
+  document.getElementById("approvalNoticeModal").classList.add("active");
+  showToast(`Vacancy received! Undergoing security verification.`);
+}
 
-  setTimeout(() => {
-    openWhatsApp(adminMsg);
-  }, 1500);
+// Handle Farmland Submission (With WhatsApp Security Pre-Approval)
+function handlePostLand(e) {
+  e.preventDefault();
+
+  const title = document.getElementById("landTitle").value.trim();
+  const purpose = document.getElementById("landPurpose").value;
+  const size = document.getElementById("landSize").value.trim();
+  const location = document.getElementById("landLocation").value.trim();
+  const price = document.getElementById("landPrice").value.trim();
+  const water = document.getElementById("landWater").value;
+  const doc = document.getElementById("landDoc").value;
+  const topography = document.getElementById("landTopography").value;
+  const owner = document.getElementById("landOwnerName").value.trim();
+  const phone = document.getElementById("landOwnerPhone").value.trim();
+  const desc = document.getElementById("landDesc").value.trim();
+
+  const purposeDisplay = purpose === "lease" 
+    ? "For Lease (Annual Rental)" 
+    : purpose === "sale" 
+      ? "For Outright Sale" 
+      : "Joint Venture / Farming Partnership";
+
+  // Create formatted WhatsApp Security Verification alert for Victoria
+  const adminMsg = `🛡️ *AGROHIRE SECURITY ALERT: NEW FARMLAND PENDING APPROVAL*\n` +
+    `---------------------------------------------\n` +
+    `📍 *Land Headline:* ${title}\n` +
+    `🎯 *Listing Purpose:* ${purposeDisplay}\n` +
+    `📐 *Total Size:* ${size}\n` +
+    `📌 *Location:* ${location}\n` +
+    `💰 *Asking Rate / Price:* ${price}\n` +
+    `💧 *Water Access:* ${water}\n` +
+    `📜 *Title Document:* ${doc}\n` +
+    `⛰️ *Topography:* ${topography}\n` +
+    `👤 *Owner / Agent:* ${owner}\n` +
+    `📞 *WhatsApp / Phone:* ${phone}\n` +
+    `📝 *Access & Notes:* ${desc || "No special notes provided"}\n` +
+    `---------------------------------------------\n` +
+    `⚠️ *LAND DUE DILIGENCE CHECKLIST:*\n` +
+    `1. Verify owner/agent identity on WhatsApp\n` +
+    `2. Cross-check survey beacon coordinates for chart authenticity\n` +
+    `3. Confirm no customary boundary or family land disputes\n\n` +
+    `*Admin Action:* Reply to verify and publish on AgroHire Land Showcase.`;
+
+  pendingVerificationMessage = adminMsg;
+
+  // Save to audit pending queue
+  let pendingLands = [];
+  try {
+    const stored = localStorage.getItem("agrohire_pending_lands");
+    if (stored) pendingLands = JSON.parse(stored);
+  } catch (err) {}
+
+  pendingLands.unshift({
+    id: "pending-land-" + Date.now(),
+    title, purpose, size, location, price, water, doc, topography, owner, phone, desc,
+    submittedAt: new Date().toISOString(),
+    status: "pending_verification"
+  });
+  localStorage.setItem("agrohire_pending_lands", JSON.stringify(pendingLands));
+
+  closeModals();
+  document.getElementById("postLandForm").reset();
+
+  // Configure and show Approval Notice Modal
+  const noticeTitle = document.getElementById("approvalNoticeTitle");
+  const noticeDesc = document.getElementById("approvalNoticeDesc");
+  if (noticeTitle) noticeTitle.textContent = "Farmland Submitted for Title Verification!";
+  if (noticeDesc) {
+    noticeDesc.textContent = `Your farmland listing for "${title}" in ${location} is undergoing title and coordinate due diligence to protect buyers and lessees. Click below to send your verification message to Victoria on WhatsApp.`;
+  }
+
+  document.getElementById("approvalNoticeModal").classList.add("active");
+  showToast(`Farmland received! Undergoing title security verification.`);
+}
+
+// Confirm Approval via WhatsApp Action
+function confirmApprovalWhatsApp() {
+  if (pendingVerificationMessage) {
+    openWhatsApp(pendingVerificationMessage);
+  } else {
+    openWhatsApp("Hello Victoria! I have submitted a listing on AgroHire.ng for security verification.");
+  }
+  closeModals();
 }
 
 // Handle Candidate Registration

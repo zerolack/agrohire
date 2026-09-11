@@ -1433,6 +1433,307 @@ button, input, select, textarea {
   opacity: 1;
 }
 
+/* ==========================================================================
+   Security & Verification Shield Styles
+   ========================================================================== */
+.security-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  background-color: #fef3c7;
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 0.88rem;
+  color: #92400e;
+  line-height: 1.45;
+}
+
+.security-banner-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.security-banner strong {
+  color: #78350f;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.security-badge-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.approval-modal-content {
+  text-align: center;
+  padding: 1rem 0.5rem;
+}
+
+.approval-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.2rem auto;
+  border-radius: 50%;
+  background-color: #ecfdf5;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  border: 2px solid #a7f3d0;
+}
+
+.approval-modal-content h3 {
+  font-size: 1.35rem;
+  color: var(--dark);
+  margin-bottom: 0.6rem;
+  font-weight: 800;
+}
+
+.approval-modal-content p {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+}
+
+.approval-steps-box {
+  background-color: var(--gray-100);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: left;
+  margin-bottom: 1.4rem;
+  font-size: 0.86rem;
+  color: var(--gray-700);
+}
+
+.approval-steps-box li {
+  margin-left: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+/* ==========================================================================
+   Farmland Showcase Section
+   ========================================================================== */
+.farmland-section {
+  background-color: #f8fafc;
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 5rem 0;
+}
+
+.farmland-header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.farmland-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.farmland-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.8rem;
+}
+
+.farmland-card {
+  background-color: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.farmland-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: #a7f3d0;
+}
+
+.farmland-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.farmland-type-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
+}
+
+.farmland-type-badge.lease {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.farmland-type-badge.sale {
+  background-color: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.farmland-size-tag {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--dark);
+  background-color: var(--gray-100);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.farmland-title {
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.35rem;
+  line-height: 1.35;
+}
+
+.farmland-location {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: var(--gray-600);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.farmland-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  background-color: #f8fafc;
+  padding: 0.9rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  border: 1px solid var(--gray-200);
+  font-size: 0.82rem;
+}
+
+.farmland-spec-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.farmland-spec-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  font-weight: 700;
+}
+
+.farmland-spec-val {
+  font-weight: 600;
+  color: var(--dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.farmland-desc {
+  font-size: 0.88rem;
+  color: var(--gray-600);
+  line-height: 1.45;
+  margin-bottom: 1rem;
+}
+
+.farmland-crop-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.farmland-crop-tag {
+  font-size: 0.75rem;
+  background-color: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+}
+
+.farmland-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-200);
+  margin-top: auto;
+}
+
+.farmland-price-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.farmland-price-unit {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--gray-500);
+}
+
+.farmland-cta-banner {
+  margin-top: 3rem;
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+  border-radius: var(--radius-lg);
+  padding: 2.2rem;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.farmland-cta-text h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+  font-weight: 800;
+}
+
+.farmland-cta-text p {
+  color: #a7f3d0;
+  font-size: 0.95rem;
+  max-width: 650px;
+}
+
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
   .hero-title {
