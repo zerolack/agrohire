@@ -5,7 +5,9 @@
 
 // Configuration
 const CONFIG = {
-  adminWhatsApp: "2348000000000", // Victoria's WhatsApp Business contact placeholder
+  adminWhatsApp: "2348034127476", // Victoria's WhatsApp Business contact
+  adminPhone: "+2348034127476",
+  adminPhoneDisplay: "0803 412 7476",
   brandName: "AgroHire.ng"
 };
 
@@ -25,7 +27,7 @@ const INITIAL_JOBS = [
     postedDays: "1 day ago",
     description: "Seeking an experienced B.Agric/HND holder to manage our 15,000-capacity broiler and layer farm. Must have at least 4 years experience in brooding, biosecurity, feed formulation, and stock loss prevention.",
     skills: ["Broiler Brooding", "Layer Management", "Vaccination", "Feed Formulation", "Staff Supervision"],
-    whatsappContact: "2348000000000"
+    whatsappContact: "2348034127476"
   },
   {
     id: "job-2",
@@ -41,7 +43,7 @@ const INITIAL_JOBS = [
     postedDays: "Just now",
     description: "Urgent need for a seasoned tractor operator for 150-hectare commercial maize and soybean land preparation. Must be skilled in disc ploughing, harrowing, ridging, and basic daily engine maintenance.",
     skills: ["Massey Ferguson 375", "Disc Harrow", "GPS Guiding", "Engine Care", "Ridging"],
-    whatsappContact: "2348000000000"
+    whatsappContact: "2348034127476"
   },
   {
     id: "job-3",
@@ -57,7 +59,7 @@ const INITIAL_JOBS = [
     postedDays: "2 days ago",
     description: "Supervise our 24-earthen-pond catfish grow-out facility and concrete hatchery tanks. Responsibilities include induced breeding (hormone stripping), water quality testing, sorting, and sales coordination.",
     skills: ["Induced Breeding", "Fingerling Sorting", "Water Quality", "Smoked Fish Handling"],
-    whatsappContact: "2348000000000"
+    whatsappContact: "2348034127476"
   },
   {
     id: "job-4",
@@ -73,7 +75,7 @@ const INITIAL_JOBS = [
     postedDays: "3 days ago",
     description: "Coordinate planting calendar, soil nutrition testing, weed management, and mechanized harvesting for an 80-hectare mechanized cassava plantation linked to starch factories.",
     skills: ["Soil pH Testing", "Herbicide Regimes", "Starch Cassava Varieties", "Fertilizer Blending"],
-    whatsappContact: "2348000000000"
+    whatsappContact: "2348034127476"
   },
   {
     id: "job-5",
@@ -89,7 +91,7 @@ const INITIAL_JOBS = [
     postedDays: "3 days ago",
     description: "Looking for an energetic machine handler specialized in walking tractors (power tillers) and motorized knapsack sprayers for high-density cucumber and habanero pepper farming.",
     skills: ["Walking Tractors", "Motorized Sprayer", "Drip Irrigation", "Preventive Maintenance"],
-    whatsappContact: "2348000000000"
+    whatsappContact: "2348034127476"
   },
   {
     id: "job-6",
@@ -105,7 +107,7 @@ const INITIAL_JOBS = [
     postedDays: "4 days ago",
     description: "Animal health officer required to manage health profiles for 400 cattle and 800 goats. Responsible for routine vaccination schedules, artificial insemination, and quarantine protocols.",
     skills: ["Vaccination Schedules", "Animal Pathology", "Deworming", "Wound Care"],
-    whatsappContact: "2348000000000"
+    whatsappContact: "2348034127476"
   },
   {
     id: "job-7",
@@ -121,7 +123,7 @@ const INITIAL_JOBS = [
     postedDays: "5 days ago",
     description: "Integrated farm (palm oil, plantain, and piggery) requires a proactive supervisor to oversee 25 field workers, harvest tallying, security, and weekly stock audit.",
     skills: ["Oil Palm Processing", "Labor Coordination", "Inventory Audit", "Piggery Management"],
-    whatsappContact: "2348000000000"
+    whatsappContact: "2348034127476"
   },
   {
     id: "job-8",
@@ -137,7 +139,7 @@ const INITIAL_JOBS = [
     postedDays: "6 days ago",
     description: "Experienced operator to handle motorized bunch threshers, digesters, and hydraulic presses during peak palm fruit harvest season.",
     skills: ["Hydraulic Press", "Palm Digester", "Boiler Operation", "Safety Compliance"],
-    whatsappContact: "2348000000000"
+    whatsappContact: "2348034127476"
   }
 ];
 

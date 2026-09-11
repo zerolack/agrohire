@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AgroHire Nigeria | Vetted Farm Managers, Tractor Operators & Agricultural Talent</title>
-  <meta name="description" content="Nigeria's premier agricultural recruitment and farm operations platform. Hire vetted farm managers, certified tractor operators, poultry specialists, and agronomists across Nigeria.">
+  <meta name="description"
+    content="Nigeria's premier agricultural recruitment and farm operations platform. Hire vetted farm managers, certified tractor operators, poultry specialists, and agronomists across Nigeria.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
   <!-- Top Announcement Bar -->
   <aside class="announcement-bar" aria-label="Announcement">
     <div class="container announcement-content">
-      <span>🌾 <strong>Zero Upfront Cost:</strong> Nigerian commercial farms can post standard vacancies 100% free this month!</span>
-      <a href="#post-modal" class="announcement-link" onclick="openPostJobModal()">Post a Job Free &rarr;</a>
+      <span>🌾 <strong>Zero Upfront Cost:</strong> Nigerian commercial farms can post standard vacancies 100% free!</span>
+      <div style="display:flex; align-items:center; gap:1.2rem;">
+        <span>📞 Direct Call / WhatsApp: <a href="tel:+2348034127476" style="color: #fde047; font-weight: 700; text-decoration: underline;">0803 412 7476</a></span>
+        <a href="#post-modal" class="announcement-link" onclick="openPostJobModal()">Post a Job Free &rarr;</a>
+      </div>
     </div>
   </aside>
 
@@ -25,11 +32,12 @@
     <div class="container header-container">
       <a href="#" class="logo">
         <div class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z"/>
-            <path d="M7 16c1.5-2 3.5-3 5-3s3.5 1 5 3"/>
-            <path d="M12 13V7"/>
-            <path d="M9 10l3-3 3 3"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z" />
+            <path d="M7 16c1.5-2 3.5-3 5-3s3.5 1 5 3" />
+            <path d="M12 13V7" />
+            <path d="M9 10l3-3 3 3" />
           </svg>
         </div>
         <span class="logo-text">Agro<span>Hire</span><small>.ng</small></span>
@@ -44,7 +52,7 @@
       </nav>
 
       <div class="header-actions">
-        <button class="btn btn-outline-primary" onclick="openTalentModal()">I'm Looking for Work</button>
+        <a href="tel:+2348034127476" class="btn btn-outline-primary" style="font-weight:700;">📞 0803 412 7476</a>
         <button class="btn btn-primary" onclick="openPostJobModal()">+ Post a Vacancy</button>
         <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation Menu">
           <span></span><span></span><span></span>
@@ -64,8 +72,9 @@
         Hire Vetted Farm Managers & <span class="gradient-text">Tractor Operators</span> in 48 Hours
       </h1>
       <p class="hero-subtitle">
-        Stop losing farm yields and investments to untrained workers and ghost managers. 
-        AgroHire connects commercial farms in Nigeria with reference-checked farm managers, certified machinery drivers, poultry experts, and agronomists.
+        Stop losing farm yields and investments to untrained workers and ghost managers.
+        AgroHire connects commercial farms in Nigeria with reference-checked farm managers, certified machinery drivers,
+        poultry experts, and agronomists.
       </p>
 
       <!-- Search & Filter Card -->
@@ -73,7 +82,8 @@
         <form class="search-form" id="searchForm" onsubmit="handleSearch(event)">
           <div class="form-group search-keyword">
             <span class="input-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="Role (e.g., Farm Manager, Tractor Operator, Poultry...)" aria-label="Search Job Title">
+            <input type="text" id="searchInput" placeholder="Role (e.g., Farm Manager, Tractor Operator, Poultry...)"
+              aria-label="Search Job Title">
           </div>
 
           <div class="form-group search-category">
@@ -186,7 +196,8 @@
           <span class="section-subtitle">Machinery & Mechanization</span>
           <h2 class="section-title">Featured Vetted Tractor & Equipment Operators</h2>
           <p class="section-desc">
-            Equipment owners lose millions to uncertified drivers. Every operator here has passed practical driving tests, maintenance checks, and identity verification.
+            Equipment owners lose millions to uncertified drivers. Every operator here has passed practical driving
+            tests, maintenance checks, and identity verification.
           </p>
         </div>
         <button class="btn btn-outline-light" onclick="openOperatorRequestModal()">
@@ -204,12 +215,14 @@
           <span class="bridge-badge">🚜 Own Farm Machinery?</span>
           <h3>Put Your Idle Tractors & Implements to Work Safely</h3>
           <p>
-            Have a 75HP tractor, planter, or boom sprayer parked on your farm? 
-            Partner with AgroHire: we provide the verified operators and connect you with nearby commercial farms for guaranteed rental income.
+            Have a 75HP tractor, planter, or boom sprayer parked on your farm?
+            Partner with AgroHire: we provide the verified operators and connect you with nearby commercial farms for
+            guaranteed rental income.
           </p>
         </div>
         <div class="bridge-action">
-          <button class="btn btn-accent" onclick="openWhatsApp('Hi AgroHire, I have farm equipment/machinery I would like to list for rental with your vetted operators.')">
+          <button class="btn btn-accent"
+            onclick="openWhatsApp('Hi AgroHire, I have farm equipment/machinery I would like to list for rental with your vetted operators.')">
             List Equipment With Us
           </button>
         </div>
@@ -231,21 +244,24 @@
           <div class="step-number">01</div>
           <div class="step-icon">📋</div>
           <h3>Post Your Farm Role</h3>
-          <p>Submit your vacancy in under 2 minutes. Specify role, farm location, crop or livestock type, salary, and whether on-farm housing is provided.</p>
+          <p>Submit your vacancy in under 2 minutes. Specify role, farm location, crop or livestock type, salary, and
+            whether on-farm housing is provided.</p>
         </div>
 
         <div class="step-card">
           <div class="step-number">02</div>
           <div class="step-icon">🔎</div>
           <h3>We Screen & Verify</h3>
-          <p>We filter through 50+ candidates, conduct phone screenings, and run verification calls with previous farm employers to confirm honesty and competence.</p>
+          <p>We filter through 50+ candidates, conduct phone screenings, and run verification calls with previous farm
+            employers to confirm honesty and competence.</p>
         </div>
 
         <div class="step-card">
           <div class="step-number">03</div>
           <div class="step-icon">🤝</div>
           <h3>Interview & Deploy</h3>
-          <p>Receive the top 2 best-qualified candidates on your WhatsApp within 48 hours. Interview them and deploy directly to your farm with full peace of mind.</p>
+          <p>Receive the top 2 best-qualified candidates on your WhatsApp within 48 hours. Interview them and deploy
+            directly to your farm with full peace of mind.</p>
         </div>
       </div>
     </div>
@@ -333,7 +349,8 @@
           <span class="badge-pill">🎓 Calling Agric Graduates & Experienced Farmhands</span>
           <h2>Are You a Skilled Farm Professional Looking for High-Paying Work?</h2>
           <p>
-            Whether you graduated from FUNAAB, UI, FUTA, or have 5+ years managing commercial poultry, catfish ponds, or driving tractors—join Nigeria’s premier vetted talent pool.
+            Whether you graduated from FUNAAB, UI, FUTA, or have 5+ years managing commercial poultry, catfish ponds, or
+            driving tractors—join Nigeria’s premier vetted talent pool.
           </p>
           <div class="banner-perks">
             <span>✓ Verified Employers Only</span>
@@ -358,20 +375,22 @@
         <a href="#" class="logo footer-logo">
           <div class="logo-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-              <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z"/>
-              <path d="M7 16c1.5-2 3.5-3 5-3s3.5 1 5 3"/>
-              <path d="M12 13V7"/>
-              <path d="M9 10l3-3 3 3"/>
+              <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z" />
+              <path d="M7 16c1.5-2 3.5-3 5-3s3.5 1 5 3" />
+              <path d="M12 13V7" />
+              <path d="M9 10l3-3 3 3" />
             </svg>
           </div>
           <span class="logo-text">Agro<span>Hire</span><small>.ng</small></span>
         </a>
         <p class="footer-desc">
-          Building Nigeria’s most trusted agricultural operations network. Connecting commercial farm estates with verified talent and mechanized tools.
+          Building Nigeria’s most trusted agricultural operations network. Connecting commercial farm estates with
+          verified talent and mechanized tools.
         </p>
         <div class="footer-contact">
           <span>📍 Operating across: Oyo • Ogun • Kaduna • Benue • Lagos • Edo</span>
-          <span>💬 WhatsApp Support: <a href="#" onclick="openWhatsApp('Hello AgroHire support team!')">+234 800 000 0000</a></span>
+          <span>📞 Direct Call: <a href="tel:+2348034127476" style="color:#10b981; font-weight:700;">+234 803 412 7476</a> (0803 412 7476)</span>
+          <span>💬 WhatsApp Support: <a href="#" onclick="openWhatsApp('Hello AgroHire support team!')">+234 803 412 7476</a></span>
         </div>
       </div>
 
@@ -391,7 +410,9 @@
           <li><a href="#jobs">Browse Farm Jobs</a></li>
           <li><a href="#candidate-banner" onclick="openTalentModal()">Register as Agro-Talent</a></li>
           <li><a href="#operators">Get Certified as Operator</a></li>
-          <li><a href="#" onclick="openWhatsApp('Hi AgroHire, I would like to join the WhatsApp Job Alert Community.')">Join WhatsApp Job Alerts</a></li>
+          <li><a href="#"
+              onclick="openWhatsApp('Hi AgroHire, I would like to join the WhatsApp Job Alert Community.')">Join
+              WhatsApp Job Alerts</a></li>
         </ul>
       </div>
 
@@ -416,13 +437,17 @@
     </div>
   </footer>
 
-  <!-- Floating WhatsApp Widget -->
-  <div class="floating-whatsapp" onclick="openWhatsApp('Hello AgroHire! I would like to inquire about agricultural talent / farm services.')" title="Chat on WhatsApp">
-    <div class="whatsapp-tooltip">Chat with our Agro Consultant</div>
+  <!-- Floating WhatsApp & Call Widget -->
+  <div class="floating-whatsapp"
+    onclick="openWhatsApp('Hello Victoria / AgroHire! I would like to inquire about agricultural talent / farm services.')"
+    title="Call or Chat on WhatsApp">
+    <div class="whatsapp-tooltip">📞 Call / Chat: 0803 412 7476</div>
     <div class="whatsapp-btn">
       <svg viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.353.101.173.45 0.743.966 1.202.664.591 1.224.774 1.397.86.173.086.274.072.376-.043.101-.116.433-.506.549-.679.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/>
-        <path d="M12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.662 1.436 5.176L2 22l4.966-1.393A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.167c-1.688 0-3.256-.494-4.577-1.343l-.328-.21-2.952.828.835-2.878-.231-.341A8.136 8.136 0 013.833 12c0-4.503 3.664-8.167 8.167-8.167s8.167 3.664 8.167 8.167-3.664 8.167-8.167 8.167z"/>
+        <path
+          d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.353.101.173.45 0.743.966 1.202.664.591 1.224.774 1.397.86.173.086.274.072.376-.043.101-.116.433-.506.549-.679.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z" />
+        <path
+          d="M12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.662 1.436 5.176L2 22l4.966-1.393A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.167c-1.688 0-3.256-.494-4.577-1.343l-.328-.21-2.952.828.835-2.878-.231-.341A8.136 8.136 0 013.833 12c0-4.503 3.664-8.167 8.167-8.167s8.167 3.664 8.167 8.167-3.664 8.167-8.167 8.167z" />
       </svg>
     </div>
   </div>
@@ -481,7 +506,8 @@
 
         <div class="form-field">
           <label for="applicantSkills">Key Skills & Equipment Handled</label>
-          <input type="text" id="applicantSkills" placeholder="e.g. Brooding 5k birds, MF 375 Tractor, Catfish breeding, Drip Irrigation">
+          <input type="text" id="applicantSkills"
+            placeholder="e.g. Brooding 5k birds, MF 375 Tractor, Catfish breeding, Drip Irrigation">
         </div>
 
         <div class="form-field">
@@ -491,7 +517,8 @@
 
         <div class="form-field">
           <label for="applicantNote">Short Pitch to Employer</label>
-          <textarea id="applicantNote" rows="3" placeholder="Briefly state why you're a great fit for this farm..."></textarea>
+          <textarea id="applicantNote" rows="3"
+            placeholder="Briefly state why you're a great fit for this farm..."></textarea>
         </div>
 
         <div class="modal-actions">
@@ -578,7 +605,8 @@
 
         <div class="form-field">
           <label for="postDescription">Key Job Requirements & Responsibilities</label>
-          <textarea id="postDescription" rows="3" placeholder="Describe the daily duties, acreage, livestock count, or specific experience needed..."></textarea>
+          <textarea id="postDescription" rows="3"
+            placeholder="Describe the daily duties, acreage, livestock count, or specific experience needed..."></textarea>
         </div>
 
         <div class="modal-actions">
@@ -646,7 +674,8 @@
 
         <div class="form-field">
           <label for="talentSummary">Experience Summary & Key Strengths</label>
-          <textarea id="talentSummary" rows="3" placeholder="Mention previous farm sizes, birds managed, tractor brands, or crop yields achieved..."></textarea>
+          <textarea id="talentSummary" rows="3"
+            placeholder="Mention previous farm sizes, birds managed, tractor brands, or crop yields achieved..."></textarea>
         </div>
 
         <div class="modal-actions">
@@ -662,4 +691,5 @@
 
   <script src="app.js"></script>
 </body>
+
 </html>
