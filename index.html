@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroHire Nigeria | Vetted Farm Managers, Tractor Operators & Agricultural Talent</title>
+  <meta name="description" content="Nigeria's premier agricultural recruitment and farm operations platform. Hire vetted farm managers, certified tractor operators, poultry specialists, and agronomists across Nigeria.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Announcement">
+    <div class="container announcement-content">
+      <span>🌾 <strong>Zero Upfront Cost:</strong> Nigerian commercial farms can post standard vacancies 100% free this month!</span>
+      <a href="#post-modal" class="announcement-link" onclick="openPostJobModal()">Post a Job Free &rarr;</a>
+    </div>
+  </aside>
+
+  <!-- Navigation -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z"/>
+            <path d="M7 16c1.5-2 3.5-3 5-3s3.5 1 5 3"/>
+            <path d="M12 13V7"/>
+            <path d="M9 10l3-3 3 3"/>
+          </svg>
+        </div>
+        <span class="logo-text">Agro<span>Hire</span><small>.ng</small></span>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#jobs" class="nav-link">Find Farm Jobs</a>
+        <a href="#operators" class="nav-link">Vetted Operators</a>
+        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#pricing" class="nav-link">Employers</a>
+        <a href="#candidate-banner" class="nav-link highlight" onclick="openTalentModal()">Join Talent Pool</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-outline-primary" onclick="openTalentModal()">I'm Looking for Work</button>
+        <button class="btn btn-primary" onclick="openPostJobModal()">+ Post a Vacancy</button>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Nigeria's #1 Agricultural Talent & Operations Network
+      </div>
+      <h1 class="hero-title">
+        Hire Vetted Farm Managers & <span class="gradient-text">Tractor Operators</span> in 48 Hours
+      </h1>
+      <p class="hero-subtitle">
+        Stop losing farm yields and investments to untrained workers and ghost managers. 
+        AgroHire connects commercial farms in Nigeria with reference-checked farm managers, certified machinery drivers, poultry experts, and agronomists.
+      </p>
+
+      <!-- Search & Filter Card -->
+      <div class="hero-search-card">
+        <form class="search-form" id="searchForm" onsubmit="handleSearch(event)">
+          <div class="form-group search-keyword">
+            <span class="input-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Role (e.g., Farm Manager, Tractor Operator, Poultry...)" aria-label="Search Job Title">
+          </div>
+
+          <div class="form-group search-category">
+            <span class="input-icon">🏷️</span>
+            <select id="categorySelect" aria-label="Select Category">
+              <option value="all">All Specializations</option>
+              <option value="management">Farm Management</option>
+              <option value="machinery">Tractor & Heavy Machinery</option>
+              <option value="poultry">Poultry & Feed Mill</option>
+              <option value="aquaculture">Catfish & Aquaculture</option>
+              <option value="agronomy">Crops & Agronomy</option>
+              <option value="veterinary">Veterinary & Health</option>
+            </select>
+          </div>
+
+          <div class="form-group search-location">
+            <span class="input-icon">📍</span>
+            <select id="locationSelect" aria-label="Select State Location">
+              <option value="all">All States</option>
+              <option value="Oyo">Oyo (Ibadan, Iseyin, Saki)</option>
+              <option value="Ogun">Ogun (Abeokuta, Sagamu, Ijebu)</option>
+              <option value="Kaduna">Kaduna (Zaria, Kaduna South)</option>
+              <option value="Benue">Benue (Makurdi, Gboko)</option>
+              <option value="Lagos">Lagos (Epe, Badagry, Ikorodu)</option>
+              <option value="Edo">Edo (Benin, Ekpoma)</option>
+              <option value="Ondo">Ondo (Akure, Ondo Town)</option>
+              <option value="Kwara">Kwara (Ilorin, Offa)</option>
+              <option value="Abuja">Abuja / FCT</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary search-btn">
+            Search Jobs
+          </button>
+        </form>
+
+        <div class="trending-tags">
+          <span class="tags-label">Hot Roles:</span>
+          <button class="tag-btn" onclick="filterByTag('Tractor Operator')">Tractor Operator</button>
+          <button class="tag-btn" onclick="filterByTag('Farm Manager')">Farm Manager</button>
+          <button class="tag-btn" onclick="filterByTag('Broiler Specialist')">Broiler Specialist</button>
+          <button class="tag-btn" onclick="filterByTag('Catfish Hatchery')">Catfish Hatchery</button>
+        </div>
+      </div>
+
+      <!-- Trust Bar -->
+      <div class="hero-stats-ribbon">
+        <div class="stat-item">
+          <strong>100%</strong>
+          <span>Reference-Checked</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>48-Hr</strong>
+          <span>Rapid Candidate Match</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>36 States</strong>
+          <span>Nationwide Farm Reach</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <strong>₦0</strong>
+          <span>Standard Postings</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Job Listings Section -->
+  <section class="section jobs-section" id="jobs">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-subtitle">Active Vacancies</span>
+          <h2 class="section-title">Verified Agribusiness Job Openings</h2>
+        </div>
+        <div class="job-category-filters" id="categoryFilters">
+          <button class="filter-pill active" data-filter="all">All Jobs (<span id="countAll">0</span>)</button>
+          <button class="filter-pill" data-filter="management">Farm Managers</button>
+          <button class="filter-pill" data-filter="machinery">Tractor & Operators</button>
+          <button class="filter-pill" data-filter="poultry">Poultry / Birds</button>
+          <button class="filter-pill" data-filter="aquaculture">Fish Farming</button>
+          <button class="filter-pill" data-filter="agronomy">Agronomy / Crops</button>
+        </div>
+      </div>
+
+      <!-- Job Cards Grid -->
+      <div class="jobs-grid" id="jobsGrid">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+
+      <div class="view-more-container" id="emptySearchState" style="display: none;">
+        <div class="empty-state-card">
+          <span class="empty-icon">🌾</span>
+          <h3>No matching farm jobs found</h3>
+          <p>Try searching with a broader keyword or resetting your category and state filters.</p>
+          <button class="btn btn-outline-primary" onclick="resetFilters()">Reset All Filters</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vetted Tractor & Machinery Operators Showcase -->
+  <section class="section operators-section" id="operators">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-subtitle">Machinery & Mechanization</span>
+          <h2 class="section-title">Featured Vetted Tractor & Equipment Operators</h2>
+          <p class="section-desc">
+            Equipment owners lose millions to uncertified drivers. Every operator here has passed practical driving tests, maintenance checks, and identity verification.
+          </p>
+        </div>
+        <button class="btn btn-outline-light" onclick="openOperatorRequestModal()">
+          Request Dedicated Operator &rarr;
+        </button>
+      </div>
+
+      <div class="operators-grid" id="operatorsGrid">
+        <!-- Dynamically populated via app.js -->
+      </div>
+
+      <!-- Equipment Rental Bridging Banner -->
+      <div class="equipment-bridge-card">
+        <div class="bridge-content">
+          <span class="bridge-badge">🚜 Own Farm Machinery?</span>
+          <h3>Put Your Idle Tractors & Implements to Work Safely</h3>
+          <p>
+            Have a 75HP tractor, planter, or boom sprayer parked on your farm? 
+            Partner with AgroHire: we provide the verified operators and connect you with nearby commercial farms for guaranteed rental income.
+          </p>
+        </div>
+        <div class="bridge-action">
+          <button class="btn btn-accent" onclick="openWhatsApp('Hi AgroHire, I have farm equipment/machinery I would like to list for rental with your vetted operators.')">
+            List Equipment With Us
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="section how-it-works-section" id="how-it-works">
+    <div class="container">
+      <div class="text-center section-intro">
+        <span class="section-subtitle">Simplicity First</span>
+        <h2 class="section-title">How AgroHire Works for Farm Owners</h2>
+        <p class="section-desc">Hiring reliable farm hands in Nigeria doesn't have to be a stressful gamble.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-icon">📋</div>
+          <h3>Post Your Farm Role</h3>
+          <p>Submit your vacancy in under 2 minutes. Specify role, farm location, crop or livestock type, salary, and whether on-farm housing is provided.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-icon">🔎</div>
+          <h3>We Screen & Verify</h3>
+          <p>We filter through 50+ candidates, conduct phone screenings, and run verification calls with previous farm employers to confirm honesty and competence.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-icon">🤝</div>
+          <h3>Interview & Deploy</h3>
+          <p>Receive the top 2 best-qualified candidates on your WhatsApp within 48 hours. Interview them and deploy directly to your farm with full peace of mind.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Employer Pricing Packages -->
+  <section class="section pricing-section" id="pricing">
+    <div class="container">
+      <div class="text-center section-intro">
+        <span class="section-subtitle">Straightforward Pricing</span>
+        <h2 class="section-title">Transparent Plans for Commercial Farms</h2>
+        <p class="section-desc">Start free or upgrade to our fully vetted white-glove shortlisting.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Plan 1 -->
+        <div class="pricing-card">
+          <div class="plan-header">
+            <span class="plan-badge">Community Tier</span>
+            <h3 class="plan-name">Standard Listing</h3>
+            <div class="plan-price">₦0 <span>/ posting</span></div>
+            <p class="plan-summary">Perfect for standard farmhands and casual seasonal labor.</p>
+          </div>
+          <ul class="plan-features">
+            <li>✓ Live on AgroHire Job Board for 30 Days</li>
+            <li>✓ Broadcast to AgroHire WhatsApp Community</li>
+            <li>✓ Direct applicant WhatsApp/Email forwarding</li>
+            <li>✗ Reference verification not included</li>
+            <li>✗ Dedicated candidate phone screening not included</li>
+          </ul>
+          <button class="btn btn-outline-primary full-width" onclick="openPostJobModal('Free Standard')">
+            Post Free Vacancy
+          </button>
+        </div>
+
+        <!-- Plan 2 (Featured) -->
+        <div class="pricing-card featured">
+          <div class="featured-ribbon">Most Popular</div>
+          <div class="plan-header">
+            <span class="plan-badge featured-badge">Farm Owner Favorite</span>
+            <h3 class="plan-name">VIP Vetted Shortlist</h3>
+            <div class="plan-price">₦25,000 <span>/ placement</span></div>
+            <p class="plan-summary">For Farm Managers, Supervisors, and critical technical roles.</p>
+          </div>
+          <ul class="plan-features">
+            <li>✓ Pinned to Top of Job Board & WhatsApp Broadcasts</li>
+            <li>✓ <strong>Full Reference Verification:</strong> We call 2 past farm employers</li>
+            <li>✓ Identity Check (NIN & Guarantor confirmation)</li>
+            <li>✓ <strong>Top 2 Hand-Picked Candidates:</strong> Delivered within 48 hours</li>
+            <li>✓ <strong>14-Day Free Replacement Guarantee:</strong> If the candidate quits</li>
+          </ul>
+          <button class="btn btn-primary full-width" onclick="openPostJobModal('VIP Vetted (₦25,000)')">
+            Order VIP Shortlist
+          </button>
+        </div>
+
+        <!-- Plan 3 -->
+        <div class="pricing-card">
+          <div class="plan-header">
+            <span class="plan-badge">Heavy Equipment</span>
+            <h3 class="plan-name">Operator Match</h3>
+            <div class="plan-price">₦15,000 <span>/ operator</span></div>
+            <p class="plan-summary">Certified tractor drivers, harvester operators, and technicians.</p>
+          </div>
+          <ul class="plan-features">
+            <li>✓ Verified Equipment Driving License & Experience</li>
+            <li>✓ Tested on Massey Ferguson, John Deere, or Power Tillers</li>
+            <li>✓ Routine Maintenance & Engine Care Competence</li>
+            <li>✓ Operator dispatched to your farm cluster</li>
+            <li>✓ 7-Day Replacement Guarantee</li>
+          </ul>
+          <button class="btn btn-outline-primary full-width" onclick="openPostJobModal('Operator Match (₦15,000)')">
+            Request Certified Operator
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Candidate CTA Banner -->
+  <section class="section candidate-banner-section" id="candidate-banner">
+    <div class="container">
+      <div class="candidate-banner-card">
+        <div class="banner-text">
+          <span class="badge-pill">🎓 Calling Agric Graduates & Experienced Farmhands</span>
+          <h2>Are You a Skilled Farm Professional Looking for High-Paying Work?</h2>
+          <p>
+            Whether you graduated from FUNAAB, UI, FUTA, or have 5+ years managing commercial poultry, catfish ponds, or driving tractors—join Nigeria’s premier vetted talent pool.
+          </p>
+          <div class="banner-perks">
+            <span>✓ Verified Employers Only</span>
+            <span>✓ Free On-Farm Accommodation Included</span>
+            <span>✓ Timely Salary Commitments</span>
+          </div>
+        </div>
+        <div class="banner-action">
+          <button class="btn btn-accent btn-large" onclick="openTalentModal()">
+            Submit Your CV / Profile &rarr;
+          </button>
+          <small class="secure-text">🔒 100% Free for Job Seekers</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-col brand-col">
+        <a href="#" class="logo footer-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z"/>
+              <path d="M7 16c1.5-2 3.5-3 5-3s3.5 1 5 3"/>
+              <path d="M12 13V7"/>
+              <path d="M9 10l3-3 3 3"/>
+            </svg>
+          </div>
+          <span class="logo-text">Agro<span>Hire</span><small>.ng</small></span>
+        </a>
+        <p class="footer-desc">
+          Building Nigeria’s most trusted agricultural operations network. Connecting commercial farm estates with verified talent and mechanized tools.
+        </p>
+        <div class="footer-contact">
+          <span>📍 Operating across: Oyo • Ogun • Kaduna • Benue • Lagos • Edo</span>
+          <span>💬 WhatsApp Support: <a href="#" onclick="openWhatsApp('Hello AgroHire support team!')">+234 800 000 0000</a></span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>For Farm Owners</h4>
+        <ul>
+          <li><a href="#post-modal" onclick="openPostJobModal()">Post a Farm Vacancy</a></li>
+          <li><a href="#pricing">VIP Shortlist Service</a></li>
+          <li><a href="#operators">Hire Tractor Drivers</a></li>
+          <li><a href="#operators">List Idle Equipment</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>For Job Seekers</h4>
+        <ul>
+          <li><a href="#jobs">Browse Farm Jobs</a></li>
+          <li><a href="#candidate-banner" onclick="openTalentModal()">Register as Agro-Talent</a></li>
+          <li><a href="#operators">Get Certified as Operator</a></li>
+          <li><a href="#" onclick="openWhatsApp('Hi AgroHire, I would like to join the WhatsApp Job Alert Community.')">Join WhatsApp Job Alerts</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Specializations</h4>
+        <ul>
+          <li><a href="#jobs" onclick="filterByTag('Farm Manager')">Commercial Farm Managers</a></li>
+          <li><a href="#jobs" onclick="filterByTag('Tractor Operator')">Tractor & Heavy Machinery</a></li>
+          <li><a href="#jobs" onclick="filterByTag('Poultry')">Poultry & Feed Mills</a></li>
+          <li><a href="#jobs" onclick="filterByTag('Aquaculture')">Catfish & Aquaculture</a></li>
+          <li><a href="#jobs" onclick="filterByTag('Agronomy')">Crop Agronomists</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>&copy; 2026 AgroHire Nigeria. Built for Nigerian Agribusiness Growth.</p>
+      <div class="footer-bottom-links">
+        <a href="#how-it-works">Privacy & Verification Standard</a>
+        <a href="#pricing">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Widget -->
+  <div class="floating-whatsapp" onclick="openWhatsApp('Hello AgroHire! I would like to inquire about agricultural talent / farm services.')" title="Chat on WhatsApp">
+    <div class="whatsapp-tooltip">Chat with our Agro Consultant</div>
+    <div class="whatsapp-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.353.101.173.45 0.743.966 1.202.664.591 1.224.774 1.397.86.173.086.274.072.376-.043.101-.116.433-.506.549-.679.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/>
+        <path d="M12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.662 1.436 5.176L2 22l4.966-1.393A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.167c-1.688 0-3.256-.494-4.577-1.343l-.328-.21-2.952.828.835-2.878-.231-.341A8.136 8.136 0 013.833 12c0-4.503 3.664-8.167 8.167-8.167s8.167 3.664 8.167 8.167-3.664 8.167-8.167 8.167z"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Modal 1: Apply For Job Modal -->
+  <div class="modal-overlay" id="applyModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModals()">&times;</button>
+      <div class="modal-header">
+        <span class="modal-tag">Job Application</span>
+        <h3 id="modalJobTitle">Apply for Farm Role</h3>
+        <p id="modalJobSub">Submit your details to be submitted to the farm owner.</p>
+      </div>
+
+      <form id="jobApplyForm" onsubmit="handleJobApplication(event)">
+        <input type="hidden" id="applyJobId">
+        <input type="hidden" id="applyJobName">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="applicantName">Full Name *</label>
+            <input type="text" id="applicantName" placeholder="e.g. Emmanuel Adeleke" required>
+          </div>
+          <div class="form-field">
+            <label for="applicantPhone">Phone / WhatsApp *</label>
+            <input type="tel" id="applicantPhone" placeholder="e.g. 08012345678" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="applicantState">Current State of Residence *</label>
+            <select id="applicantState" required>
+              <option value="">Select State</option>
+              <option value="Oyo">Oyo</option>
+              <option value="Ogun">Ogun</option>
+              <option value="Kaduna">Kaduna</option>
+              <option value="Benue">Benue</option>
+              <option value="Lagos">Lagos</option>
+              <option value="Edo">Edo</option>
+              <option value="Ondo">Ondo</option>
+              <option value="Kwara">Kwara</option>
+              <option value="Other">Other States</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="applicantExp">Years of Relevant Farm Experience *</label>
+            <select id="applicantExp" required>
+              <option value="1-2 years">1 - 2 Years</option>
+              <option value="3-5 years">3 - 5 Years</option>
+              <option value="5+ years">5+ Years</option>
+              <option value="Fresher / Graduate">Agric Graduate (No formal farm exp)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="applicantSkills">Key Skills & Equipment Handled</label>
+          <input type="text" id="applicantSkills" placeholder="e.g. Brooding 5k birds, MF 375 Tractor, Catfish breeding, Drip Irrigation">
+        </div>
+
+        <div class="form-field">
+          <label for="applicantPastFarm">Last Farm Worked For (Name & Town for Reference)</label>
+          <input type="text" id="applicantPastFarm" placeholder="e.g. OluwaSeun Farms, Ilora, Oyo State">
+        </div>
+
+        <div class="form-field">
+          <label for="applicantNote">Short Pitch to Employer</label>
+          <textarea id="applicantNote" rows="3" placeholder="Briefly state why you're a great fit for this farm..."></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Application &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Post A Job Modal -->
+  <div class="modal-overlay" id="postModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModals()">&times;</button>
+      <div class="modal-header">
+        <span class="modal-tag">For Farm Owners</span>
+        <h3>Post a Farm Vacancy</h3>
+        <p>Connect with vetted managers, tractor drivers, and specialized hands.</p>
+      </div>
+
+      <form id="postJobForm" onsubmit="handlePostJob(event)">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="farmName">Farm / Business Name *</label>
+            <input type="text" id="farmName" placeholder="e.g. GreenHaven Agro Allied Ltd" required>
+          </div>
+          <div class="form-field">
+            <label for="postRoleTitle">Role Title *</label>
+            <input type="text" id="postRoleTitle" placeholder="e.g. Commercial Farm Manager" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="postCategory">Category *</label>
+            <select id="postCategory" required>
+              <option value="management">Farm Management</option>
+              <option value="machinery">Tractor & Heavy Machinery</option>
+              <option value="poultry">Poultry & Birds</option>
+              <option value="aquaculture">Catfish & Aquaculture</option>
+              <option value="agronomy">Crops & Agronomy</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="postState">Farm Location (State & Town) *</label>
+            <input type="text" id="postState" placeholder="e.g. Oyo (Iseyin farm site)" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="postSalary">Monthly Salary Range (₦) *</label>
+            <input type="text" id="postSalary" placeholder="e.g. ₦120,000 - ₦150,000" required>
+          </div>
+          <div class="form-field">
+            <label for="postHousing">Free On-Farm Housing Provided? *</label>
+            <select id="postHousing" required>
+              <option value="Yes, Free Housing Included">Yes, Free Housing Included</option>
+              <option value="No Housing">No Housing</option>
+              <option value="Housing Allowance Provided">Housing Allowance Provided</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="postPackage">Hiring Package</label>
+          <select id="postPackage">
+            <option value="Free Standard Listing (₦0)">Free Standard Listing (₦0)</option>
+            <option value="VIP Vetted Shortlist (₦25,000)">VIP Vetted Shortlist with 48h Top 2 match (₦25,000)</option>
+            <option value="Operator Match (₦15,000)">Certified Tractor Operator Match (₦15,000)</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="contactPerson">Contact Person *</label>
+            <input type="text" id="contactPerson" placeholder="e.g. Chief Adeleke" required>
+          </div>
+          <div class="form-field">
+            <label for="contactPhone">WhatsApp Number for Applicants *</label>
+            <input type="tel" id="contactPhone" placeholder="e.g. 08034567890" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="postDescription">Key Job Requirements & Responsibilities</label>
+          <textarea id="postDescription" rows="3" placeholder="Describe the daily duties, acreage, livestock count, or specific experience needed..."></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Publish Vacancy &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: Join Talent Pool Modal -->
+  <div class="modal-overlay" id="talentModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModals()">&times;</button>
+      <div class="modal-header">
+        <span class="modal-tag">For Job Seekers</span>
+        <h3>Join the AgroHire Vetted Talent Pool</h3>
+        <p>Get notified of high-paying commercial farm openings before they are publicly posted.</p>
+      </div>
+
+      <form id="talentRegisterForm" onsubmit="handleTalentRegister(event)">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="talentName">Full Name *</label>
+            <input type="text" id="talentName" placeholder="Your Name" required>
+          </div>
+          <div class="form-field">
+            <label for="talentPhone">WhatsApp Phone *</label>
+            <input type="tel" id="talentPhone" placeholder="080XXXXXXXX" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="talentSpecialty">Primary Agro Specialization *</label>
+            <select id="talentSpecialty" required>
+              <option value="Farm Manager">Farm Manager (Commercial Operations)</option>
+              <option value="Tractor Driver">Tractor Driver / Machine Operator</option>
+              <option value="Poultry Specialist">Poultry & Hatchery Specialist</option>
+              <option value="Catfish Specialist">Catfish & Aquaculture Expert</option>
+              <option value="Crop Agronomist">Crop Agronomist / Soil Tech</option>
+              <option value="Veterinary Tech">Veterinary Technician / Animal Health</option>
+              <option value="Farm Hand">General Farmhand / Production Worker</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="talentEducation">Highest Qualification *</label>
+            <select id="talentEducation" required>
+              <option value="B.Agric / B.Sc">B.Agric / B.Sc Agriculture</option>
+              <option value="HND / OND Agric">HND / OND Agriculture / Animal Health</option>
+              <option value="FSLC / SSCE">Secondary School (SSCE) with Farm Experience</option>
+              <option value="Practical Master">Self-Trained / Practical Farm Veteran</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="talentRelocate">Willing to Live on Farm Site?</label>
+          <select id="talentRelocate">
+            <option value="Yes, available immediately">Yes, available immediately with free farm housing</option>
+            <option value="Within my State only">Within my State only</option>
+            <option value="Non-residential only">Non-residential only</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="talentSummary">Experience Summary & Key Strengths</label>
+          <textarea id="talentSummary" rows="3" placeholder="Mention previous farm sizes, birds managed, tractor brands, or crop yields achieved..."></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModals()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Profile &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
