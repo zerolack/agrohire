@@ -315,8 +315,9 @@ function renderJobs() {
   grid.innerHTML = "";
 
   const filtered = allJobs.filter(job => {
-    // Category match
-    const categoryMatch = (currentCategoryFilter === "all") || (job.category === currentCategoryFilter);
+    // Category match (supports specific category or 'urgent' filter)
+    const categoryMatch = (currentCategoryFilter === "all") || 
+      (currentCategoryFilter === "urgent" ? Boolean(job.urgent) : job.category === currentCategoryFilter);
 
     // Location match
     const locationMatch = (currentLocationFilter === "all") || (job.state.toLowerCase() === currentLocationFilter.toLowerCase());
@@ -331,6 +332,41 @@ function renderJobs() {
 
     return categoryMatch && locationMatch && searchMatch;
   });
+
+  // Update Live Feedback Bar
+  const feedbackBar = document.getElementById("searchFeedbackBar");
+  const feedbackText = document.getElementById("feedbackText");
+  const feedbackBadge = document.getElementById("feedbackBadge");
+  if (feedbackBar && feedbackText) {
+    const isFiltered = (currentCategoryFilter !== "all") || 
+                       (currentLocationFilter !== "all") || 
+                       (currentSearchKeyword !== "");
+
+    if (isFiltered) {
+      feedbackBar.style.display = "flex";
+      let parts = [];
+      if (currentSearchKeyword) parts.push(`matching "${escapeHtml(currentSearchKeyword)}"`);
+      if (currentCategoryFilter !== "all") {
+        const catLabels = {
+          machinery: "Tractor & Machinery",
+          management: "Farm Management",
+          poultry: "Poultry Specialists",
+          aquaculture: "Aquaculture / Fish",
+          agronomy: "Agronomy / Crops",
+          urgent: "Urgent Hires"
+        };
+        parts.push(`category: ${catLabels[currentCategoryFilter] || currentCategoryFilter}`);
+      }
+      if (currentLocationFilter !== "all") parts.push(`location: ${currentLocationFilter}`);
+
+      feedbackText.innerHTML = `Showing <strong>${filtered.length}</strong> verified ${filtered.length === 1 ? 'vacancy' : 'vacancies'} ${parts.length ? '(' + parts.join(', ') + ')' : ''}`;
+      if (feedbackBadge) {
+        feedbackBadge.textContent = filtered.length > 0 ? `${filtered.length} Found` : "0 Found";
+      }
+    } else {
+      feedbackBar.style.display = "none";
+    }
+  }
 
   if (filtered.length === 0) {
     emptyState.style.display = "block";
@@ -598,6 +634,34 @@ function shareFarmlandWhatsApp(landId) {
   window.open(url, "_blank");
 }
 
+// Synchronize UI filter elements across hero quick-chips, category pills, and selects
+function syncFilterUI() {
+  // Sync category select dropdown if option exists
+  const categorySelect = document.getElementById("categorySelect");
+  if (categorySelect) {
+    const hasOption = Array.from(categorySelect.options).some(opt => opt.value === currentCategoryFilter);
+    categorySelect.value = hasOption ? currentCategoryFilter : "all";
+  }
+
+  // Sync category pills in #categoryFilters
+  document.querySelectorAll("#categoryFilters .filter-pill").forEach(p => {
+    if (p.dataset.filter === currentCategoryFilter) {
+      p.classList.add("active");
+    } else {
+      p.classList.remove("active");
+    }
+  });
+
+  // Sync quick chips in #heroQuickFilters
+  document.querySelectorAll("#heroQuickFilters .quick-chip").forEach(c => {
+    if (c.dataset.filter === currentCategoryFilter) {
+      c.classList.add("active");
+    } else {
+      c.classList.remove("active");
+    }
+  });
+}
+
 // Event Listeners Setup
 function setupEventListeners() {
   // Mobile Nav Toggle
@@ -609,17 +673,65 @@ function setupEventListeners() {
     });
   }
 
-  // Category Filter Pills
+  // Hero Quick-Filter Chips
+  const heroQuickFilters = document.getElementById("heroQuickFilters");
+  if (heroQuickFilters) {
+    heroQuickFilters.addEventListener("click", (e) => {
+      const chip = e.target.closest(".quick-chip");
+      if (!chip) return;
+
+      currentCategoryFilter = chip.dataset.filter;
+      syncFilterUI();
+      renderJobs();
+
+      // Scroll smoothly to jobs section
+      const jobsSection = document.getElementById("jobs");
+      if (jobsSection) {
+        jobsSection.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  }
+
+  // Category Filter Pills in Jobs Section
   const filterContainer = document.getElementById("categoryFilters");
   if (filterContainer) {
     filterContainer.addEventListener("click", (e) => {
       const btn = e.target.closest(".filter-pill");
       if (!btn) return;
 
-      document.querySelectorAll("#categoryFilters .filter-pill").forEach(p => p.classList.remove("active"));
-      btn.classList.add("active");
-
       currentCategoryFilter = btn.dataset.filter;
+      syncFilterUI();
+      renderJobs();
+    });
+  }
+
+  // Instant Live Search Input with Debounce (250ms)
+  let searchDebounceTimer = null;
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        currentSearchKeyword = e.target.value.trim();
+        renderJobs();
+      }, 250);
+    });
+  }
+
+  // Instant Change Handlers for Hero Dropdowns
+  const categorySelect = document.getElementById("categorySelect");
+  if (categorySelect) {
+    categorySelect.addEventListener("change", (e) => {
+      currentCategoryFilter = e.target.value;
+      syncFilterUI();
+      renderJobs();
+    });
+  }
+
+  const locationSelect = document.getElementById("locationSelect");
+  if (locationSelect) {
+    locationSelect.addEventListener("change", (e) => {
+      currentLocationFilter = e.target.value;
       renderJobs();
     });
   }
@@ -657,15 +769,7 @@ function handleSearch(e) {
   currentCategoryFilter = categorySelect ? categorySelect.value : "all";
   currentLocationFilter = locationSelect ? locationSelect.value : "all";
 
-  // Sync category pill
-  document.querySelectorAll(".filter-pill").forEach(p => {
-    if (p.dataset.filter === currentCategoryFilter) {
-      p.classList.add("active");
-    } else {
-      p.classList.remove("active");
-    }
-  });
-
+  syncFilterUI();
   renderJobs();
 
   // Scroll smoothly to jobs grid
@@ -685,11 +789,7 @@ function filterByTag(tag) {
   currentCategoryFilter = "all";
   currentLocationFilter = "all";
 
-  document.querySelectorAll(".filter-pill").forEach(p => {
-    if (p.dataset.filter === "all") p.classList.add("active");
-    else p.classList.remove("active");
-  });
-
+  syncFilterUI();
   renderJobs();
 
   const jobsSection = document.getElementById("jobs");
@@ -712,11 +812,7 @@ function resetFilters() {
   if (categorySelect) categorySelect.value = "all";
   if (locationSelect) locationSelect.value = "all";
 
-  document.querySelectorAll(".filter-pill").forEach(p => {
-    if (p.dataset.filter === "all") p.classList.add("active");
-    else p.classList.remove("active");
-  });
-
+  syncFilterUI();
   renderJobs();
 }
 
