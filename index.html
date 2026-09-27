@@ -150,12 +150,20 @@
           </button>
         </form>
 
-        <div class="trending-tags">
-          <span class="tags-label">Hot Roles:</span>
-          <button class="tag-btn" onclick="filterByTag('Tractor Operator')">Tractor Operator</button>
-          <button class="tag-btn" onclick="filterByTag('Farm Manager')">Farm Manager</button>
-          <button class="tag-btn" onclick="filterByTag('Broiler Specialist')">Broiler Specialist</button>
-          <button class="tag-btn" onclick="filterByTag('Catfish Hatchery')">Catfish Hatchery</button>
+        <div class="hero-quick-filters" id="heroQuickFilters" aria-label="Quick Category Filters">
+          <div class="quick-filter-header">
+            <span class="quick-filter-label">⚡ Popular Roles:</span>
+            <span class="quick-filter-hint">Tap to filter instantly</span>
+          </div>
+          <div class="chips-scroll-container">
+            <button type="button" class="quick-chip active" data-filter="all">✨ All Roles</button>
+            <button type="button" class="quick-chip" data-filter="machinery">🚜 Tractor Operators</button>
+            <button type="button" class="quick-chip" data-filter="management">🌾 Farm Managers</button>
+            <button type="button" class="quick-chip" data-filter="poultry">🐔 Poultry Specialists</button>
+            <button type="button" class="quick-chip" data-filter="aquaculture">🐟 Fish Farming</button>
+            <button type="button" class="quick-chip" data-filter="agronomy">🌱 Agronomists</button>
+            <button type="button" class="quick-chip urgent-chip" data-filter="urgent">🔥 Urgent Hires</button>
+          </div>
         </div>
       </div>
 
@@ -199,7 +207,19 @@
           <button class="filter-pill" data-filter="poultry">Poultry / Birds</button>
           <button class="filter-pill" data-filter="aquaculture">Fish Farming</button>
           <button class="filter-pill" data-filter="agronomy">Agronomy / Crops</button>
+          <button class="filter-pill" data-filter="urgent">🔥 Urgent Hires</button>
         </div>
+      </div>
+
+      <!-- Live Search & Filter Feedback Bar -->
+      <div class="search-feedback-bar" id="searchFeedbackBar" style="display: none;">
+        <div class="feedback-info">
+          <span class="feedback-badge" id="feedbackBadge">Filtered</span>
+          <span class="feedback-text" id="feedbackText">Showing 0 verified vacancies</span>
+        </div>
+        <button type="button" class="btn-clear-filter" onclick="resetFilters()">
+          Clear All Filters ✕
+        </button>
       </div>
 
       <!-- Job Cards Grid -->
